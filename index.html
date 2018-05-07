@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Short Boxed</title>
+</head>
+<body>
+	<div class="main">
+		<section>
+		</section>
+	</div>
+	
+
+	<script>
+		// let baseUrl = 'https://api.shortboxed.com/comics/v1/new'
+		let baseUrl = 'https://api.shortboxed.com/comics/v1/future';
+
+		const section = document.querySelector('section');
+
+		fetch(baseUrl).then(function(result) {
+          return result.json();
+        }).then(function(json) {
+          displayResults(json);
+        });
+
+        function groupBy(comics, property) {
+    		return comics.reduce(function(memo, x) {
+    			if (!memo[x[property]]) { memo[x[property]] = []; }
+				memo[x[property]].push(x);
+				return memo;
+    		},{});
+    	}
+        // need to sort by publisher, then title
+
+
+        function displayResults(json) {
+        	let comics = json.comics;
+        	console.log(comics);
+
+        	// while(section.firstChild) {
+        	// 	section.removeChild(section.firstChild);
+        	// }
+
+        	// comics is an array of objects
+
+        	// needs fixing
+        	
+
+        	// comics = groupBy(comics, 'publisher'); // possibly remove
+        	console.log(comics);
+
+        	for (let i = 0; i < comics.length; i++) {
+        		let comic = document.createElement('div');
+        		let title = document.createElement('h2');
+        		let creator = document.createElement('div');
+        		let desc = document.createElement('p');
+        		let diamondID = document.createElement('p');
+        		let publisher = document.createElement('p');
+        		let price = document.createElement('p');
+        		let releaseDate = document.createElement('div');
+
+        		// console.log(comics[i].creator + " creator");
+
+        		// maybe a for in loop here
+
+
+        		title.textContent = comics[i].title;
+        		creator.textContent = comics[i].creators;
+        		desc.textContent = comics[i].description;
+	       		publisher.textContent = `Publisher: ${comics[i].publisher}`;
+	       		price.textContent = `Price: ${comics[i].price}`;
+	       		diamondID.textContent = comics[i].diamond_id;
+	       		releaseDate.textContent = `On sale ${comics[i].release_date}`;
+
+        		console.log(title);
+        		console.log(diamondID);
+        		section.appendChild(comic);
+        		comic.appendChild(title);
+        		comic.appendChild(creator);
+        		comic.appendChild(desc);
+        		comic.appendChild(publisher);
+        		comic.appendChild(price);
+        		comic.appendChild(releaseDate);
+        	}
+        }
+
+	</script>
+</body>
+</html>
