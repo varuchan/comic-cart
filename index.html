@@ -15,21 +15,23 @@
 		// let baseUrl = 'https://api.shortboxed.com/comics/v1/new'
 		let baseUrl = 'https://api.shortboxed.com/comics/v1/future';
 
+        const proxyURL = 'https://cors-anywhere.herokuapp.com/';
+
 		const section = document.querySelector('section');
 
-		fetch(baseUrl).then(function(result) {
+		fetch(proxyURL + baseUrl).then(function(result) {
           return result.json();
         }).then(function(json) {
           displayResults(json);
         });
 
-        function groupBy(comics, property) {
-    		return comics.reduce(function(memo, x) {
-    			if (!memo[x[property]]) { memo[x[property]] = []; }
-				memo[x[property]].push(x);
-				return memo;
-    		},{});
-    	}
+    //     function groupBy(comics, property) {
+    // 		return comics.reduce(function(memo, x) {
+    // 			if (!memo[x[property]]) { memo[x[property]] = []; }
+				// memo[x[property]].push(x);
+				// return memo;
+    // 		},{});
+    // 	}
         // need to sort by publisher, then title
 
 
